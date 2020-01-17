@@ -9,7 +9,7 @@ const mapStateToProps = (state, ownProps) => {
 
   const card = cards[cardId]
 
-  return {card, listId}
+  return {card, listId, cardId}     // DDED HERE cardId ALSO
 }
 
 export default connect(mapStateToProps)(Card)

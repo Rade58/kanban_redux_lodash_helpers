@@ -1,4 +1,4 @@
-import {cards as defaultCards} from '../normalized_data' 
+import {cards as defaultCards, lists} from '../normalized_data' 
 
 // YOU CAN IMPORT pipe, AND set FROM lodash/fp
 import set from 'lodash/fp/set'
@@ -6,6 +6,9 @@ import pipe from 'lodash/fp/pipe'
 //
 
 const CREATE_CARD = 'CREATE_CARD'
+
+// ADDING HARDCODED ACTION TYPE NAME
+const REMOVE_CARD = 'REMOVE_CARD'
 
 export default (cards = defaultCards, action) => {
 
@@ -16,49 +19,66 @@ export default (cards = defaultCards, action) => {
 
     const {cardId, title, description} = action.payload
 
-    /* 
-    return {
-      entities: {...cardEntities, [cardId]: {title, description, id: cardId}},
-      ids: cardIds.concat(cardId)
-    } */
-
-    // 
-
-    // SO, CAN USE pipe IF I HAVE MULTIPLE PROPERTY CHAINS CHAINS
-
-    // IN HAVE ONE CHAIN LIKE THIS
-
-    //      cards       entities        [cardId]          (ADDING A NEW CARD INSIDE ENTITIES)
-
-    // AND THE OTHER CHAIN LIKE THIS
-
-    //     cards          ids
-
-
-    // THIRD ARGUMENT FOR BOTH set CALLS IS                     cards     (EXISTING CARDS)
-
-    // BETTER YO USEE FROM EXAMPLE
-
-    //                        pipe     CALL        RETURNS A FUNCTION, AND YOU PASS       OBJECT     FROM WHAT YOU WANT TO CREATE NEW OBJECT
-    //                                                                                                  BY OVERWRITING SOME SPECIFIED PROPERTIES
-
-
     return pipe(
-      set(['entities', cardId], {id: cardId, title, description}),      // setted first branch (value for overvriting) 
-      set('ids', cards.ids.concat(cardId))    // setted second branch for overwriting
+      set(['entities', cardId], {id: cardId, title, description}),
+      set('ids', cards.ids.concat(cardId))
 
-    )(cards)      // YOU ARE CREATING NEW OBJECT FROM       cards
-
-
-    //     so             cards.entities[cardId]          NEW OBJECT CREATED FOR card.entities
-
-    //    and             cards.ids                       NEW ARRAY WITH ONE NEW MEMBER
-
-
-      // SO         pipe      IS VERY CONVINIENT
-
+    )(cards)
 
   }
+
+  // HANDLING            'REMOVE_CARD'
+
+  if(action.type === REMOVE_CARD){
+
+    const {cardId, listId} = action.payload
+
+    // console.log({cardId, listId})
+
+    //  SO      ID    NEEDS TO BE REMOVED FROM     cards.ids
+
+    // AND      [cardId] : {........}       NEEDS TO BE REMOVEF FROM    cards.entities 
+
+  
+    // YOU NEED TO ITERATE
+
+    const keys = Object.keys(cards.entities)
+
+    // console.log(keys)
+
+    const newEntities = {}
+
+    for(let id of keys){
+      if(id !== cardId){
+
+        let entity = cards.entities[id]
+
+        // console.log({...entity})
+
+        newEntities[id] = {...entity}
+      }
+    }
+
+    
+    // ATTENTION!!!!
+    // DON'T USE map BECAUSE OF OSIBLE undifined ARRAY MEMBERS
+
+    const newIds = []
+    
+    cards.ids.forEach(id => {
+      if(id !== cardId) {
+        newIds.push(id)
+      }
+    })
+
+    console.log({newEntities, newIds})
+
+    
+    return {entities: newEntities, ids: newIds}
+
+    // now go to lists reducer
+
+  }  
 
   return cards
 }

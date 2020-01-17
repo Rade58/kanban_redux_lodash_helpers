@@ -1,0 +1,14 @@
+div.Remove {
+  width: 10%;
+  margin: 6px auto;
+  border: #d64aac solid 2px;
+  box-shadow: inset 2px 4px 6px;
+  color: #d64aac;
+  text-align: center;
+  cursor: pointer;
+}
+
+div.Remove::after {
+  content: "X";
+  font-family: fantasy;
+}
