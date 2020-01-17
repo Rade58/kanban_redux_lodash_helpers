@@ -1,0 +1,18 @@
+main.App {
+    border: tomato solid 4px;
+    width: 68vw;
+    margin: 0.2rem auto; 
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: baseline;
+}
+
+
+@media screen and (max-width: 600px) {
+    main.App {
+        border: olive solid 4px;
+    
+    }
+}

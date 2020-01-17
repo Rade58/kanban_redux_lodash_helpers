@@ -1,0 +1,10 @@
+article.List {
+
+    border: blanchedalmond 2px;
+    border-style: groove;
+    flex-basis: 180px;
+    margin: 2vw;
+    padding:0.6vw;
+    flex-shrink: 120px;
+
+}

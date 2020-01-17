@@ -1,0 +1,9 @@
+article.Card {
+    border: olive solid 2px;
+    width: 100%;
+    height: min-content ;
+    margin: 0.2vw;
+    box-sizing: border-box;
+    display: block;
+    padding: 6%;
+}
