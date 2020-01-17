@@ -1,6 +1,4 @@
-# kanban board project, made for practicing `redux` and `react-redux`
+# lodash/fp/set
 
-**HANDLING ACTIONS IN REUSABLE HELPER FUNCTIONS**
-
-**lodash IS USED**
+## YOU CAN START WITH src/reducers/list-reducer
 
