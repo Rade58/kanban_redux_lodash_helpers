@@ -4,3 +4,6 @@
 
 **lodash IS USED**
 
+*master branch is initial setup*
+
+*to see usage of loodash fp functions or usage of helpers switch branch*
