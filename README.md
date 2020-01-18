@@ -1,26 +1,28 @@
-# CARD REMOVAL WITH omit FROM lodash/fp
+# JUST WANTED TO MENTIONED THAT THERE'S ALSO A *lodash/fp**get**
 
-****
+get METHOD WORKS LIKE THIS
 
-THIS BRANCH COMES AFTER BRANCH, WHERE I DEFINED REMOVAL OF THE CARD
+- ARGUMENT IS A PATH (ARRAY OF STRINGS THAT REPRESENT THE PATH TO SOME PROPERTI)
 
-****
+- IT RETURNS NEW FUNCTION, AND THAT FUNCTIONS REQUIRES OBJECT AS AN ARGUMENT
 
-## IN THIS BRANCH I'LL USE `/lodash/fp/omit`
+- **AFTER YOU PASS AN OBJECT, YOU'LL GET THE THING DESCRIBED BY *MENTIONED PATH***
 
-SO YOU NEED TO USE MENTIONED FUNCTION IN cards-reducer, WHERE YOU DEFINED OMITION (NEW OBJECT WITH OMITED SPECIFIED OBJECT INSIDE) OF ENTITY OBJECT
+## YOU CAN SEE EXAMPLE OF IT IN HERE
 
-IF YOU FORGOT, YOU NEED TO OMIT:
+src/trash_stuff_for_practice/get_demo.js
 
-- `cards.entities[cardId]` OBJECT (YOU ARE DOING THAT INSIDE card-reducer)
+```javascript
+const get = require('lodash/fp/get')
 
-## omit IS JUST OPOSITE OF set
+const randomObject = {
+  something: {somethingElse: {somethingNice: "anything"}}
+}
 
-ALSO omit CALL CAN BE USED AS AN ARGUMENT INSIDE pipe METHOD
+const anything = get(['something', 'somethingElse', 'somethingNice'])(randomObject)
 
-BUT PAY ATTENTION, YOU NEED TO DEFINE STRINGIFIED PATH FOR omit
+console.log(anything)       // -->    'anything'
 
-FOR EXAMPLE  ``entities.${cardId}`` (TEMPLATE STRING WOULD BE VERY HELPFUL)
+```
 
-## TAKE A LOOK AT `src/reducers/cards-reducer.js` TO SEE HOV I IMPLEMENTED omit
-
+## I WILL USE THIS METHOD IN SOME OF THE NEXT BRANCHES
