@@ -1,4 +1,5 @@
 import React from 'react'
+import {Move} from '../styles/Move.module.css'
 
 export default class extends React.Component {
   
@@ -10,7 +11,7 @@ export default class extends React.Component {
     const {listTitle, titlesAndIds} = this.props
 
     return (
-    <div>
+    <div className={Move}>
       <form>
         <select name="list_select">
           { titlesAndIds.map(titleAndId => {
