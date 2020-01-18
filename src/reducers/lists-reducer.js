@@ -3,11 +3,12 @@ import {lists as defaultLists} from '../normalized_data'
 import set from 'lodash/fp/set'
 
 
-
-
 const CREATE_CARD = "CREATE_CARD"
-// ADDING REMOVAL ACTION TYPE HARDCODED
-const REMOVE_CARD = "REMOVE_CARD" 
+const REMOVE_CARD = "REMOVE_CARD"
+
+// I NEED THIS
+const MOVE_CARD = "MOVE_CARD"
+//
 
 
 
@@ -27,20 +28,15 @@ export default (lists = defaultLists, action) => {
 
   }
 
-  // you need to define removal of lists[listId].cards[cardId]
-
-  // ofcourse, always return new object (THAT SHOULD BE ALWAYS OBVIOUS, ALWAYS IMMUTABILITY)
+  
 
   if(action.type === REMOVE_CARD){
     const {cardId, listId} = action.payload
 
-    // ATTENTION!!!!
-    // DON'T USE map BECAUSE OF POSIBLE undifined ARRAY MEMBERS
-
 
     const cards = []
 
-    lists.entities[listId].cards.forEach(id => { if(id !== cardId) cards.push(id) })      // also instead of this you could have used Array.prototype.filter
+    lists.entities[listId].cards.forEach(id => { if(id !== cardId) cards.push(id) })
 
 
     return {
@@ -53,6 +49,44 @@ export default (lists = defaultLists, action) => {
 
   }
 
+
+  // HANDLING MOVING OF CARDS (THIS ACTION NEEDS TO BE HANDLED JUST WITH lsits PART OF THE STATE TREE)
+
+  if(action.type === MOVE_CARD){
+    
+    const {
+      movingToListId,
+      removingFromListId,
+      cardId
+    } = action.payload
+
+    const {entities} = lists
+
+    const loserList = {...entities[removingFromListId]}
+    const loserArray = loserList.cards
+
+    const winnerList = {...entities[movingToListId]}
+    const winnerArray = winnerList.cards
+
+    // in here i am making changes on array, (not making new arrays)
+    loserArray.splice(
+      loserArray.indexOf(cardId),
+      1
+    )
+
+    winnerArray.push(cardId)
+    
+    return {
+      ids: lists.ids,
+      entities: {
+        ...lists.entities,
+        [removingFromListId]: loserList,
+        [movingToListId]: winnerList
+      }
+    }
+
+
+  }
 
 
   return lists

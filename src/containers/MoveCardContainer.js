@@ -37,3 +37,9 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MoveCard)
+
+
+// YOU NEED TO HANDLE MOVE_CARD type OF ACTION JUST INSIDE lists-reducer.js
+
+// HANDLING     MOVE_CARD  IN POINT OF VIEW OF     cards   IS'NT REQUIRED
+// BECAUSE entities OF CARDS DON'T HAVE ANY INFO OF LIST IDS

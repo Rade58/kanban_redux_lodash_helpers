@@ -9,9 +9,10 @@ const CREATE_CARD = 'CREATE_CARD'
 
 const REMOVE_CARD = 'REMOVE_CARD'
 
-// ADDING NEW ACTION
-const MOVE_CARD = 'MOVE_CARD'
-
+/// HANDLING     MOVE_CARD  IN POINT OF VIEW OF     cards   IS'NT REQUIRED
+// BECAUSE entities OF CARDS DON'T HAVE ANY INFO OF LIST IDS
+// const MOVE_CARD = 'MOVE_CARD'   // SO THIS I WRONLY PLACED HERE (IT IS NOT NEEDED BECAUSE I WON'T HANDLE THAT ACTION IN HERE)
+// I JUST NEED TO HANDLE ACTION IN lists REDUCER
 
 
 export default (cards = defaultCards, action) => {
@@ -44,11 +45,6 @@ export default (cards = defaultCards, action) => {
 
   }
 
-  // HANDLING     MOVE_CARD
-
-  if(action.type === MOVE_CARD){
-    console.log({...action})
-  }
 
   return cards
 }
