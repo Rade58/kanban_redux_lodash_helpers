@@ -35,12 +35,12 @@ export default (lists = defaultLists, action) => {
     const {cardId, listId} = action.payload
 
     // ATTENTION!!!!
-    // DON'T USE map BECAUSE OF OSIBLE undifined ARRAY MEMBERS
+    // DON'T USE map BECAUSE OF POSIBLE undifined ARRAY MEMBERS
 
 
     const cards = []
 
-    lists.entities[listId].cards.forEach(id => { if(id !== cardId) cards.push(id) })
+    lists.entities[listId].cards.forEach(id => { if(id !== cardId) cards.push(id) })      // also instead of this you could have used Array.prototype.filter
 
 
     return {

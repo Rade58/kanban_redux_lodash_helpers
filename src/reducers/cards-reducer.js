@@ -1,13 +1,14 @@
 import {cards as defaultCards, lists} from '../normalized_data' 
 
-// YOU CAN IMPORT pipe, AND set FROM lodash/fp
+
 import set from 'lodash/fp/set'
 import pipe from 'lodash/fp/pipe'
+// IMPORTING omit
+import omit from 'lodash/fp/omit'
 //
 
 const CREATE_CARD = 'CREATE_CARD'
 
-// ADDING HARDCODED ACTION TYPE NAME
 const REMOVE_CARD = 'REMOVE_CARD'
 
 export default (cards = defaultCards, action) => {
@@ -33,18 +34,12 @@ export default (cards = defaultCards, action) => {
 
     const {cardId, listId} = action.payload
 
-    // console.log({cardId, listId})
 
-    //  SO      ID    NEEDS TO BE REMOVED FROM     cards.ids
+    // ok, this is how I handled removal of card from entities before
 
-    // AND      [cardId] : {........}       NEEDS TO BE REMOVEF FROM    cards.entities 
-
-  
-    // YOU NEED TO ITERATE
-
+    /* 
     const keys = Object.keys(cards.entities)
 
-    // console.log(keys)
 
     const newEntities = {}
 
@@ -53,16 +48,13 @@ export default (cards = defaultCards, action) => {
 
         let entity = cards.entities[id]
 
-        // console.log({...entity})
-
         newEntities[id] = {...entity}
       }
-    }
+    } */
 
-    
-    // ATTENTION!!!!
-    // DON'T USE map BECAUSE OF POSIBLE undifined ARRAY MEMBERS
 
+    // OK AND THIS IS HOW I HANDLED REMOVAL OF ID FROM ARAY OF IDS BEFORE
+    /* 
     const newIds = []
     
     cards.ids.forEach(id => {
@@ -72,12 +64,24 @@ export default (cards = defaultCards, action) => {
     })
 
     console.log({newEntities, newIds})
+  */
+    ////
+  //  return {entities: newEntities, ids: newIds}
+
+
+    // I CAN USE Array.prototype.filter FOR THE ids
+
+    const ids = cards.ids.filter(id => id !== cardId)       // FILTER WILL RETURN NEW ARRAY
 
     
-    return {entities: newEntities, ids: newIds}
+    // AND THIS IS HOW USE        omit
 
-    // now go to lists reducer
+    return pipe(
+      omit(`entities.${cardId}`),
+      set('ids', ids)
+    )(cards)
 
+      // I THINK THAT CODE SAYS THE STORY (NO NEED FOR EXTRA EXPLANATION)
   }  
 
   return cards
