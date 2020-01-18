@@ -68,14 +68,18 @@ export default (lists = defaultLists, action) => {
     const winnerList = {...entities[movingToListId]}
     const winnerArray = winnerList.cards
 
-    // in here i am making changes on array, (not making new arrays)
+    // in here i am making changes on arrays, (not making new arrays)
     loserArray.splice(
       loserArray.indexOf(cardId),
       1
     )
-
-    winnerArray.push(cardId)
     
+    winnerArray.push(cardId)
+    /////////////////////////////////////////////////////////////////
+
+
+    // AND I STRUCTURED RETURN VALUE (NEW OBJECT LIKE THIS)
+
     return {
       ids: lists.ids,
       entities: {
