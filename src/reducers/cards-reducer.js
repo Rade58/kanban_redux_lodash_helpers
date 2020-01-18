@@ -61,7 +61,7 @@ export default (cards = defaultCards, action) => {
 
     
     // ATTENTION!!!!
-    // DON'T USE map BECAUSE OF OSIBLE undifined ARRAY MEMBERS
+    // DON'T USE map BECAUSE OF POSIBLE undifined ARRAY MEMBERS
 
     const newIds = []
     
