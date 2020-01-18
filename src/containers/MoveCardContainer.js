@@ -18,4 +18,22 @@ const mapStateToProps = (state, ownProps) => {
 
 }
 
-export default connect(mapStateToProps)(MoveCard)
+const MOVE_CARD = "MOVE_CARD"
+
+const mapDispatchToProps = dispatch => {
+
+  return {
+    moveCard({movingToListId, removingFromListId, cardId}){
+      dispatch({
+        type: MOVE_CARD,
+        payload: {
+          movingToListId,
+          removingFromListId,
+          cardId
+        }
+      })
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MoveCard)
