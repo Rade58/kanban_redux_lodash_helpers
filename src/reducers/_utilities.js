@@ -44,7 +44,27 @@ export const omitEntity = (state, id) => {
 
 ////////////////////////////////////////////  i'll define a little bit different than from the place I saw this pattern   ///
 
-export const addDeepObject = (state, entityId, chainPartArray, member) => {
+// you don't need pipe IN THESE METHODS BECAUSE YOU ARE CHANGING THING ON SNGLE PATH
+
+export const provideToDeepArray = (state, entityId, chainPartArray, member) => {    // I AM USING ARG CALLED chainPartArray BECAUSE
+                                                                                    // YOU CAN IMAGINE SOME PROJECT WHRE ARRAY IS MAYBE
+                                                                                    // EVEN DEEPER DOWN INSIDE SOM SUB OF SUB OBJECT OF state
   
+  const newArray = get(['entities', entityId, ...chainPartArray])(state).concat(member)
+
+  return set(['entities', entityId, ...chainPartArray], newArray, state)
+
+
+
 }
 
+export const omitFromDeepArray = (state, entityId, chainPartArray, member) => {
+
+  const array = get(['entities', entityId, ...chainPartArray])(state)
+  const newArray = removeMemberFromArray(member, array)
+
+  return set(['entities', entityId, ...chainPartArray], newArray, state)
+
+}
+
+// NOW USE THESE METHODS IN REDUCERS
