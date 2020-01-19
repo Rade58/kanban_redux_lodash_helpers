@@ -54,8 +54,6 @@ export const provideToDeepArray = (state, entityId, chainPartArray, member) => {
 
   return set(['entities', entityId, ...chainPartArray], newArray, state)
 
-
-
 }
 
 export const omitFromDeepArray = (state, entityId, chainPartArray, member) => {
