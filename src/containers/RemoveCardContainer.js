@@ -1,19 +1,31 @@
 import {connect} from 'react-redux'
 import RemoveCard from '../components/RemoveCard'
 
-const REMOVE_CARD = "REMOVE_CARD"
+// IMPORT ACTION CREATOR
+import {removeCard} from '../actions/card-actions'
+//
 
-const mapDispatchToProps = (dispatch, ownProps) => {
 
-  const {cardId, listId} = ownProps         // THESE TWO PROPERTIES ARE PASSED THROU HIGHER ORDER COMPONENT
+// NO NEED FOR THIS
+
+/* const REMOVE_CARD = "REMOVE_CARD"
+
+const mapDispatchToProps = dispatch => {
 
   return {
 
-    removeCard(){
+    removeCard(cardId, listId){
       dispatch({type: REMOVE_CARD, payload: {listId, cardId}})
     }
   }
 }
+ */
+
+// DO IT LIKE THIS
+const mapDispatchToProps = {
+  removeCard
+}
+//
 
 export default connect(null, mapDispatchToProps)(RemoveCard)
 

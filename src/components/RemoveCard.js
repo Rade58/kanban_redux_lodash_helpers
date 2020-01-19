@@ -2,10 +2,11 @@ import React from 'react'
 import {Remove} from '../styles/Remove.module.css'
 import Card from './Card'
 
-// pay attention that you need listener too (onClick)
+// MAYBE IT'S BETTER TO PASS cardId AND listId FROM HERE 
 
-export default ({/*cardId*, listId,*/ removeCard}) => {        // cardId AND listId AREN'T HERE BECAUSE THEY ARE PASSED
-                                                          // THROUGH HIGER ORDER COMPONENT (RemoveCardContainer)
+export default ({cardId, listId, removeCard}) => {
 
-  return <div className={Remove} onClick={removeCard}></div>
+  const deleteCard = () => {removeCard(cardId, listId)}
+
+  return <div className={Remove} onClick={deleteCard}></div>
 }

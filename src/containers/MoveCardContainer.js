@@ -1,6 +1,10 @@
 import {connect} from 'react-redux'
-
 import MoveCard from '../components/MoveCard'
+
+// IMPORT ACTION CREATOR IN HERE
+import {moveCard} from '../actions/card-actions'
+////////////////////////////
+
 
 const mapStateToProps = (state, ownProps) => {
 
@@ -18,7 +22,12 @@ const mapStateToProps = (state, ownProps) => {
 
 }
 
-const MOVE_CARD = "MOVE_CARD"
+
+// INSTEAD OF ALL OF THIS
+
+
+
+/* const MOVE_CARD = "MOVE_CARD"
 
 const mapDispatchToProps = dispatch => {
 
@@ -35,11 +44,13 @@ const mapDispatchToProps = dispatch => {
     }
   }
 }
+ */
+// YOU JUST NEED THIS
+
+const mapDispatchToProps = {
+  moveCard
+}
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(MoveCard)
 
-
-// YOU NEED TO HANDLE MOVE_CARD type OF ACTION JUST INSIDE lists-reducer.js
-
-// HANDLING     MOVE_CARD  IN POINT OF VIEW OF     cards   IS'NT REQUIRED
-// BECAUSE entities OF CARDS DON'T HAVE ANY INFO OF LIST IDS
