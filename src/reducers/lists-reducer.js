@@ -1,12 +1,16 @@
 import {lists as defaultLists} from '../normalized_data' 
 
 import set from 'lodash/fp/set'
-
+// I NEED MORE HELPERS FROM lodash
+import get from 'lodash/fp/get'
+import omit from 'lodash/fp/omit'
+import pipe from 'lodash/fp/pipe'
+//
 
 const CREATE_CARD = "CREATE_CARD"
 const REMOVE_CARD = "REMOVE_CARD"
 
-// I NEED THIS
+//
 const MOVE_CARD = "MOVE_CARD"
 //
 
@@ -50,7 +54,7 @@ export default (lists = defaultLists, action) => {
   }
 
 
-  // HANDLING MOVING OF CARDS (THIS ACTION NEEDS TO BE HANDLED JUST WITH lsits PART OF THE STATE TREE)
+  // HANDLING MOVING OF CARDS (THIS TIME USING lodash/fp HELPERS)
 
   if(action.type === MOVE_CARD){
     
@@ -60,7 +64,10 @@ export default (lists = defaultLists, action) => {
       cardId
     } = action.payload
 
-    const {entities} = lists
+
+    // OK, INSTEAD OF ALL THIS
+
+    /* const {entities} = lists
 
     const loserList = {...entities[removingFromListId]}
     const loserArray = loserList.cards
@@ -68,17 +75,12 @@ export default (lists = defaultLists, action) => {
     const winnerList = {...entities[movingToListId]}
     const winnerArray = winnerList.cards
 
-    // in here i am making changes on arrays, (not making new arrays)
     loserArray.splice(
       loserArray.indexOf(cardId),
       1
     )
     
     winnerArray.push(cardId)
-    /////////////////////////////////////////////////////////////////
-
-
-    // AND I STRUCTURED RETURN VALUE (NEW OBJECT LIKE THIS)
 
     return {
       ids: lists.ids,
@@ -87,8 +89,29 @@ export default (lists = defaultLists, action) => {
         [removingFromListId]: loserList,
         [movingToListId]: winnerList
       }
-    }
+    } */
 
+    // I CAN DO IT LIKE THIS
+
+    // - FIRST LETS USE GET TO ISOLATE ARRAYS
+
+    const loserArray = get(['entities', removingFromListId, 'cards'])(lists)
+
+    const winnerArray = get(['entities', movingToListId, 'cards'])(lists)
+
+    loserArray.splice(
+      loserArray.indexOf(cardId),
+      1
+    )
+
+    winnerArray.push(cardId)
+    
+    return pipe(
+      set(['entities', removingFromListId, 'cards'], loserArray),
+      set(['entities', movingToListId, 'cards'], winnerArray)
+    )(lists)
+
+    // IT LOOKS MORE CLEANER RIGHT NOW
 
   }
 
