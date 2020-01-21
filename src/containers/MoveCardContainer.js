@@ -10,7 +10,10 @@ const mapStateToProps = (state, ownProps) => {
 
   const {lists} = state
 
+  // SO BASICALLY I WANT ARRAY
   const listsArray = Object.values(lists.entities)
+  // AND I WANT TO PASS THAT ARRAY AND USE STUFF FROM HIM INSIDE MoveCard
+
 
   const {cardId, listId} = ownProps
 
