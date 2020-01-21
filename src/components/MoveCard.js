@@ -33,15 +33,14 @@ export default class extends React.Component {
   
   render(){
 
-    // ID OF CURRENT LIST, AND TTITLES AND IDS OF ALL LISTS
-    const {listId, titlesAndIds} = this.props
+    const {listId, lists} = this.props
 
     return (
     <div className={Move} onSubmit={this.handleSubmit}>
       <form>
         <select name="list_select" defaultValue={listId} onChange={this.handleChange}>
-          { titlesAndIds.map(titleAndId => {
-            return <option key={titleAndId.id} value={titleAndId.id}>{titleAndId.title}</option>
+          { lists.map(entity => {
+            return <option key={entity.id} value={entity.id}>{entity.title}</option>
           } )}
         </select>
         <input type="submit" value="change list" />
