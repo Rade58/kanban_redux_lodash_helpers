@@ -37,12 +37,12 @@ const getListId = (entities, cardId) => {
 
 // ONO STA SE UPOREDJUJE JESTE DA LI JE ENTITIES ISTO KAO I RANIJE
 
-const takeListId = memoize(createSelector(
+const takeListId = createSelector(
   [(state) => state.lists.entities],
 
   // dakle ova funkcija ce biti pozvna prvi put i bice pozvana ako ima ralike izmedju cache-a i onoga sto ce return-ovati ova funkcija iznad
   getListId
-))
+)
 
 
 const mapStateToProps = (state, ownProps) => {
@@ -51,7 +51,9 @@ const mapStateToProps = (state, ownProps) => {
 
   // SAMO POZOVI GORNJU FUNKCIJU I PRATI REZULTAT KOJI CE SE STAMPATI U KONZOLI TOKOM MANIPULISANJA S KARTICAMA
 
-  takeListId(state, ownProps.cardId)
+  const funkcija = memoize(cardId => takeListId(state, cardId))
+
+  funkcija(ownProps.cardId)
 
   // //////////////////////////////
 
