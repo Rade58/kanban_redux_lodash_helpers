@@ -69,4 +69,8 @@ console.log({oneCardObject: cards.entities['61047285193']})
 
 console.log({individualList: lists.entities['5e1ca6d7cb194218576d58b9']})
 
+let a = { entry1: {blah: 8}, entry2: {trah: 16}}
+let b = { entry1: {blah: 8}, entry2: {trah: 16}}
 
+console.log( { A: Object.values(a) } )
+console.log( { B: Object.entries(b) } )
